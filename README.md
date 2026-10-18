@@ -17,7 +17,7 @@ Início (donut 3D) · Diferenciais · Vitrine (carrossel) · Sobre · Cardápio 
 - **Lenis**: rolagem suave sincronizada com o GSAP
 - **Embla Carousel**: vitrine com roda do mouse/trackpad, setas, arrastar e teclado
 - **Leaflet**: mapa carregado só quando a seção se aproxima da tela
-- Efeitos de hover (botões com "calda" subindo, cartões com inclinação 3D, cursor personalizado) e foco visível em todos os elementos interativos
+- Efeitos de hover (botões com "calda" subindo e cartões com inclinação 3D) e foco visível em todos os elementos interativos
 - Acessibilidade: link "pular para o conteúdo", `aria` no carrossel e nos filtros, contraste revisado e animações desligadas para quem prefere movimento reduzido
 - SEO: meta tags, Open Graph e JSON-LD (`Bakery`)
 - Todo o conteúdo fica em um único arquivo (`src/content.ts`)

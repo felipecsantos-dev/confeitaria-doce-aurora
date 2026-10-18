@@ -1,8 +1,7 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { About } from './components/About'
 import { Carousel } from './components/Carousel'
 import { Cta } from './components/Cta'
-import { Cursor } from './components/Cursor'
 import { Footer } from './components/Footer'
 import { Hero } from './components/Hero'
 import { Highlights } from './components/Highlights'
@@ -16,7 +15,6 @@ import { gsap, ScrollTrigger } from './lib/gsap'
 
 export default function App() {
   const reduced = useReducedMotion()
-  const [finePointer] = useState(() => window.matchMedia('(pointer: fine)').matches)
   useLenis(!reduced)
 
   // Revela os elementos marcados com data-reveal; grupos entram em sequência.
@@ -58,7 +56,6 @@ export default function App() {
       >
         Pular para o conteúdo
       </a>
-      {finePointer && !reduced && <Cursor />}
       <Navbar />
       <main id="conteudo">
         <Hero />
