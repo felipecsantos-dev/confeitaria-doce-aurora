@@ -101,10 +101,7 @@ export function About() {
         </div>
 
         <div>
-          <p data-reveal className="eyebrow">
-            {about.eyebrow}
-          </p>
-          <h2 id="sobre-title" data-reveal className="mt-4 font-display text-[clamp(1.75rem,4.6vw,3.6rem)] font-bold leading-[1.02]">
+          <h2 id="sobre-title" data-reveal className="font-display text-[clamp(1.75rem,4.6vw,3.6rem)] font-bold leading-[1.02]">
             Desde <span className="text-pink-ink">{site.since}</span> adoçando Aurora do Vale
           </h2>
           {about.paragraphs.map((p) => (

@@ -79,10 +79,7 @@ export function Hero() {
 
       <div className="container-x grid items-center gap-2 sm:gap-6 lg:grid-cols-[1.05fr_1fr]">
         <div className="relative z-10 max-w-xl">
-          <p data-hero-fade className="eyebrow !text-ink">
-            {hero.eyebrow}
-          </p>
-          <h1 className="mt-3 font-display text-[clamp(2.4rem,7.2vw,5.9rem)] sm:mt-5 font-bold leading-[0.95] tracking-tight text-ink">
+          <h1 className="font-display text-[clamp(2.4rem,7.2vw,5.9rem)] font-bold leading-[0.95] tracking-tight text-ink">
             <Letters text={hero.titleTop} />
             <br />
             <Letters text={hero.titleAccent} className="text-pink-ink" /> <Letters text={hero.titleBottom} />

@@ -33,7 +33,6 @@ export const nav = [
 ]
 
 export const hero = {
-  eyebrow: 'Confeitaria artesanal · desde 2012',
   titleTop: 'Doces que',
   titleAccent: 'derretem',
   titleBottom: 'corações',
@@ -126,7 +125,6 @@ export const categories: { id: Category | 'todos'; label: string }[] = [
 ]
 
 export const about = {
-  eyebrow: 'Nossa história',
   title: 'Desde 2012 adoçando Aurora do Vale',
   paragraphs: [
     'A Doce Aurora começou na cozinha de casa, com a confeiteira Helena Prado vendendo bolos de pote para os vizinhos. A procura cresceu e, em 2012, a primeira vitrine abriu na Rua das Camélias.',

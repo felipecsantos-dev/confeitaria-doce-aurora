@@ -40,10 +40,7 @@ export function Menu() {
     <section id="cardapio" className="relative bg-white pb-6 pt-10" aria-labelledby="cardapio-title">
       <div className="container-x">
         <div className="mx-auto max-w-2xl text-center">
-          <p data-reveal className="eyebrow">
-            Cardápio
-          </p>
-          <h2 id="cardapio-title" data-reveal className="mt-3 font-display text-[clamp(1.75rem,4.6vw,3.6rem)] font-bold leading-none">
+          <h2 id="cardapio-title" data-reveal className="font-display text-[clamp(1.75rem,4.6vw,3.6rem)] font-bold leading-none">
             Escolha seu próximo doce
           </h2>
           <p data-reveal className="mt-3 text-base text-ink-soft sm:mt-4 sm:text-lg">

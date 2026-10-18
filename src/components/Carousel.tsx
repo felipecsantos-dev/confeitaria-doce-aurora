@@ -37,8 +37,7 @@ export function Carousel() {
 
       <div className="container-x flex flex-wrap items-end justify-between gap-6">
         <div data-reveal>
-          <p className="eyebrow">Vitrine do dia</p>
-          <h2 id="vitrine-title" className="mt-3 font-display text-[clamp(1.75rem,4.5vw,3.4rem)] font-bold leading-none">
+          <h2 id="vitrine-title" className="font-display text-[clamp(1.75rem,4.5vw,3.4rem)] font-bold leading-none">
             Saídos do forno hoje
           </h2>
         </div>

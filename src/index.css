@@ -74,17 +74,6 @@ html.lenis body {
     margin-inline: auto;
   }
 
-  .eyebrow {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 0.72rem;
-    font-weight: 700;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--color-pink-ink);
-  }
-
   /* Botão com "calda" que sobe e preenche no hover. */
   .btn {
     position: relative;
@@ -105,9 +94,6 @@ html.lenis body {
       box-shadow 0.45s ease;
   }
   @media (min-width: 640px) {
-    .eyebrow {
-      font-size: 0.8rem;
-    }
     .btn {
       min-height: 3.5rem;
       padding: 0 1.9rem;

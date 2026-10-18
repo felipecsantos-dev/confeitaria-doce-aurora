@@ -61,10 +61,7 @@ export function Location() {
 
       <div className="container-x">
         <div className="max-w-2xl">
-          <p data-reveal className="eyebrow">
-            Visite a gente
-          </p>
-          <h2 id="visite-title" data-reveal className="mt-3 font-display text-[clamp(1.75rem,4.6vw,3.6rem)] font-bold leading-none">
+          <h2 id="visite-title" data-reveal className="font-display text-[clamp(1.75rem,4.6vw,3.6rem)] font-bold leading-none">
             Passa aqui para um café com bolo
           </h2>
         </div>
