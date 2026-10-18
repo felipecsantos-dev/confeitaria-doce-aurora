@@ -1,13 +1,12 @@
 import { InstagramLogo, TiktokLogo, WhatsappLogo } from '@phosphor-icons/react'
-import { lazy, Suspense, useLayoutEffect, useRef, useState } from 'react'
+import { lazy, Suspense, useCallback, useLayoutEffect, useRef } from 'react'
 import { hero, site } from '../content'
 import { scrollToId } from '../hooks/useLenis'
 import { useReducedMotion } from '../hooks/useReducedMotion'
 import { gsap } from '../lib/gsap'
 import { whatsappLink } from '../lib/whatsapp'
 
-const loadCanvas = () => import('../three/HeroCanvas')
-const HeroCanvas = lazy(loadCanvas)
+const HeroCanvas = lazy(() => import('../three/HeroCanvas'))
 
 function Letters({ text, className = '' }: { text: string; className?: string }) {
   return (
@@ -37,23 +36,29 @@ const sprinkles = [
 export function Hero() {
   const ref = useRef<HTMLElement>(null)
   const reduced = useReducedMotion()
-  const [show3d, setShow3d] = useState(false)
+  // O 3D carrega desde o início, em paralelo com as fontes. Quando ele avisa que está pronto,
+  // o texto e o donut entram juntos; se o 3D demorar, o texto não espera mais que 1,2 s.
+  const ready3d = useRef<() => void>(() => {})
+  const on3dReady = useCallback(() => ready3d.current(), [])
 
-  // Antes da primeira pintura: esconde o texto, espera as fontes e só então anima.
-  // O 3D só monta depois da entrada do texto, para a montagem dele não travar a animação.
+  // Antes da primeira pintura: esconde o texto para animá-lo depois.
   useLayoutEffect(() => {
-    if (reduced || !ref.current) {
-      setShow3d(true)
-      return
-    }
+    if (reduced || !ref.current) return
+    let cancelled = false
+    const waitFor3d = new Promise<void>((resolve) => {
+      ready3d.current = resolve
+      setTimeout(resolve, 1200)
+    })
     const ctx = gsap.context(() => {
-      const tl = gsap.timeline({ paused: true, defaults: { ease: 'power4.out' }, onComplete: () => setShow3d(true) })
+      const tl = gsap.timeline({ paused: true, defaults: { ease: 'power4.out' } })
       tl.from('[data-letter]', { yPercent: 110, rotate: 8, duration: 1.1, stagger: 0.025 }).from(
         '[data-hero-fade]',
         { y: 30, opacity: 0, duration: 0.9, stagger: 0.1 },
         '-=0.7',
       )
-      document.fonts.ready.then(() => tl.play())
+      Promise.all([document.fonts.ready, waitFor3d]).then(() => {
+        if (!cancelled) tl.play()
+      })
       // Granulados de fundo se afastam ao rolar.
       gsap.to('[data-sprinkle]', {
         y: (i) => -80 - i * 25,
@@ -62,7 +67,10 @@ export function Hero() {
         scrollTrigger: { trigger: ref.current, start: 'top top', end: 'bottom top', scrub: true },
       })
     }, ref)
-    return () => ctx.revert()
+    return () => {
+      cancelled = true
+      ctx.revert()
+    }
   }, [reduced])
 
   return (
@@ -135,11 +143,9 @@ export function Hero() {
 
         <div className="relative mx-auto aspect-square w-full max-w-[16rem] sm:max-w-[26rem] lg:-mr-10 lg:max-w-[38rem]">
           <div aria-hidden="true" className="absolute inset-[12%] rounded-full bg-white/30 blur-2xl" />
-          {show3d && (
-            <Suspense fallback={null}>
-              <HeroCanvas reduced={reduced} />
-            </Suspense>
-          )}
+          <Suspense fallback={null}>
+            <HeroCanvas reduced={reduced} onReady={on3dReady} />
+          </Suspense>
         </div>
       </div>
     </section>

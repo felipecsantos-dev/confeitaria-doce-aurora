@@ -5,9 +5,10 @@ import type { Group } from 'three'
 import { MathUtils } from 'three'
 import { Donut } from './Donut'
 
-type Props = { reduced: boolean }
+type Props = { reduced: boolean; onReady?: () => void }
 
-// Compila os shaders em paralelo (sem travar a página) antes de começar a desenhar.
+// Compila os shaders em paralelo e desenha o primeiro quadro antes de mostrar o donut,
+// assim o trabalho pesado acontece antes das animações de entrada começarem.
 function Warmup({ onReady }: { onReady: () => void }) {
   const gl = useThree((s) => s.gl)
   const scene = useThree((s) => s.scene)
@@ -16,7 +17,11 @@ function Warmup({ onReady }: { onReady: () => void }) {
     let alive = true
     gl.compileAsync(scene, camera)
       .catch(() => undefined)
-      .then(() => alive && onReady())
+      .then(() => {
+        if (!alive) return
+        gl.render(scene, camera)
+        requestAnimationFrame(() => alive && onReady())
+      })
     return () => {
       alive = false
     }
@@ -71,11 +76,14 @@ function Scene({ reduced }: Props) {
   )
 }
 
-export default function HeroCanvas({ reduced }: Props) {
+export default function HeroCanvas({ reduced, onReady: notify }: Props) {
   const wrapRef = useRef<HTMLDivElement>(null)
   const [visible, setVisible] = useState(true)
   const [ready, setReady] = useState(false)
-  const onReady = useCallback(() => setReady(true), [])
+  const onReady = useCallback(() => {
+    setReady(true)
+    notify?.()
+  }, [notify])
 
   // Para de renderizar quando o hero sai da tela.
   useEffect(() => {
@@ -94,7 +102,7 @@ export default function HeroCanvas({ reduced }: Props) {
   return (
     <div
       ref={wrapRef}
-      className={`pointer-events-none absolute -inset-[18%] transition-[opacity,scale] duration-1000 ease-out ${ready ? 'scale-100 opacity-100' : 'scale-90 opacity-0'}`}
+      className={`pointer-events-none absolute -inset-[18%] transition-[opacity,scale] duration-700 ease-out ${ready ? 'scale-100 opacity-100' : 'scale-90 opacity-0'}`}
     >
       {/* Sombra em CSS: mesmo efeito da sombra 3D, sem custo de renderização. */}
       <div aria-hidden="true" className="absolute left-1/2 top-[72%] h-[6%] w-[42%] -translate-x-1/2 rounded-[50%] bg-[#1f7f79]/40 blur-xl" />
