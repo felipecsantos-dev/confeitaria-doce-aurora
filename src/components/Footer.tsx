@@ -5,9 +5,9 @@ import { Logo } from './Logo'
 
 export function Footer() {
   return (
-    <footer className="relative bg-ink pb-10 pt-[clamp(110px,13vw,190px)] text-white/80">
+    <footer className="relative bg-ink pb-10 pt-[clamp(80px,13vw,190px)] text-white/80">
       <Drip color="#d13a70" seed={41} count={12} className="absolute inset-x-0 top-0" />
-      <div className="container-x grid gap-10 md:grid-cols-[1.4fr_1fr_1fr]">
+      <div className="container-x grid gap-8 md:grid-cols-[1.4fr_1fr_1fr]">
         <div>
           <Logo light />
           <p className="mt-4 max-w-sm leading-relaxed">
@@ -42,7 +42,7 @@ export function Footer() {
           </ul>
         </div>
       </div>
-      <div className="container-x mt-14 flex flex-col gap-3 border-t border-white/10 pt-6 text-sm text-white/60 md:flex-row md:items-center md:justify-between">
+      <div className="container-x mt-10 flex flex-col gap-3 border-t border-white/10 pt-6 text-sm text-white/60 md:flex-row md:items-center md:justify-between">
         <p>{credits}</p>
         <a href={site.author.url} target="_blank" rel="noreferrer" className="group rounded-lg md:text-right">
           <span className="block font-semibold text-white">

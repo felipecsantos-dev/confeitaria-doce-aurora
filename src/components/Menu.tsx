@@ -43,15 +43,15 @@ export function Menu() {
           <p data-reveal className="eyebrow">
             Cardápio
           </p>
-          <h2 id="cardapio-title" data-reveal className="mt-3 font-display text-[clamp(2.3rem,4.6vw,3.6rem)] font-bold leading-none">
+          <h2 id="cardapio-title" data-reveal className="mt-3 font-display text-[clamp(1.75rem,4.6vw,3.6rem)] font-bold leading-none">
             Escolha seu próximo doce
           </h2>
-          <p data-reveal className="mt-4 text-lg text-ink-soft">
+          <p data-reveal className="mt-3 text-base text-ink-soft sm:mt-4 sm:text-lg">
             Preços por unidade ou por bolo inteiro. Encomendas de bolos com 48h de antecedência.
           </p>
         </div>
 
-        <div data-reveal role="group" aria-label="Filtrar cardápio" className="mt-10 flex flex-wrap justify-center gap-3">
+        <div data-reveal role="group" aria-label="Filtrar cardápio" className="mt-6 flex flex-wrap justify-center gap-2 sm:mt-10 sm:gap-3">
           {categories.map((c) => {
             const on = filter === c.id
             return (
@@ -60,7 +60,7 @@ export function Menu() {
                 type="button"
                 aria-pressed={on}
                 onClick={() => choose(c.id)}
-                className={`rounded-full border-2 px-6 py-2.5 font-semibold transition duration-300 hover:-translate-y-0.5 ${
+                className={`rounded-full border-2 px-4 py-2 text-sm font-semibold sm:px-6 sm:py-2.5 sm:text-base transition duration-300 hover:-translate-y-0.5 ${
                   on ? 'border-pink-deep bg-pink-deep text-white shadow-pink' : 'border-mint text-mint-deep hover:border-pink hover:text-pink-ink'
                 }`}
               >
@@ -70,7 +70,7 @@ export function Menu() {
           })}
         </div>
 
-        <ul ref={listRef} className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3" aria-live="polite">
+        <ul ref={listRef} className="mt-8 grid gap-3 sm:mt-12 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3" aria-live="polite">
           {visible.map((p) => (
             <li key={p.name} data-flip-id={p.name}>
               <a
@@ -79,7 +79,7 @@ export function Menu() {
                 rel="noreferrer"
                 className="group flex h-full items-center gap-4 rounded-[1.75rem] border border-ink/8 bg-white p-3 pr-5 transition duration-500 hover:-translate-y-1 hover:border-pink/40 hover:shadow-[0_24px_40px_-28px_rgb(224_69_123/0.6)] focus-visible:!rounded-[1.75rem]"
               >
-                <span className="size-24 shrink-0 overflow-hidden rounded-[1.25rem] bg-mint-soft">
+                <span className="size-20 shrink-0 overflow-hidden sm:size-24 rounded-[1.25rem] bg-mint-soft">
                   <img
                     src={`/images/${p.image}.webp`}
                     alt=""
@@ -90,10 +90,10 @@ export function Menu() {
                   />
                 </span>
                 <span className="min-w-0 flex-1">
-                  <span className="flex items-baseline gap-2">
-                    <span className="font-display text-lg font-semibold leading-tight">{p.name}</span>
-                    <span aria-hidden="true" className="mb-1 min-w-4 flex-1 border-b-2 border-dotted border-ink/20" />
-                    <span className="whitespace-nowrap font-display text-lg font-semibold text-pink-ink">{p.price}</span>
+                  <span className="flex flex-col sm:flex-row sm:items-baseline sm:gap-2">
+                    <span className="font-display text-base font-semibold leading-tight sm:text-lg">{p.name}</span>
+                    <span aria-hidden="true" className="mb-1 hidden min-w-4 flex-1 border-b-2 sm:block border-dotted border-ink/20" />
+                    <span className="whitespace-nowrap font-display text-base font-semibold sm:text-lg text-pink-ink">{p.price}</span>
                   </span>
                   <span className="mt-1 line-clamp-2 block text-sm leading-snug text-ink-soft">{p.description}</span>
                 </span>

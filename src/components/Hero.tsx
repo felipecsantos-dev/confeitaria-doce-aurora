@@ -59,7 +59,7 @@ export function Hero() {
     <section
       ref={ref}
       id="inicio"
-      className="relative isolate overflow-hidden bg-[radial-gradient(120%_90%_at_80%_20%,#bff0ec_0%,#8edfd9_45%,#5fcac3_100%)] pt-28 pb-16 lg:pt-32 lg:pb-24"
+      className="relative isolate overflow-hidden bg-[radial-gradient(120%_90%_at_80%_20%,#bff0ec_0%,#8edfd9_45%,#5fcac3_100%)] pt-24 pb-8 sm:pt-28 sm:pb-16 lg:pt-32 lg:pb-24"
     >
       {/* Bolhas de fundo que mudam de forma */}
       <div aria-hidden="true" className="absolute -left-32 top-1/3 -z-10 size-[28rem] rounded-[58%_42%_55%_45%/48%_58%_42%_52%] bg-white/25 blur-2xl" />
@@ -77,20 +77,20 @@ export function Hero() {
         />
       ))}
 
-      <div className="container-x grid items-center gap-6 lg:grid-cols-[1.05fr_1fr]">
+      <div className="container-x grid items-center gap-2 sm:gap-6 lg:grid-cols-[1.05fr_1fr]">
         <div className="relative z-10 max-w-xl">
           <p data-hero-fade className="eyebrow !text-ink">
             {hero.eyebrow}
           </p>
-          <h1 className="mt-5 font-display text-[clamp(3rem,7.2vw,5.9rem)] font-bold leading-[0.95] tracking-tight text-ink">
+          <h1 className="mt-3 font-display text-[clamp(2.4rem,7.2vw,5.9rem)] sm:mt-5 font-bold leading-[0.95] tracking-tight text-ink">
             <Letters text={hero.titleTop} />
             <br />
             <Letters text={hero.titleAccent} className="text-pink-ink" /> <Letters text={hero.titleBottom} />
           </h1>
-          <p data-hero-fade className="mt-6 max-w-md text-lg leading-relaxed text-ink/80">
+          <p data-hero-fade className="mt-4 max-w-md text-base leading-relaxed sm:mt-6 sm:text-lg text-ink/80">
             {hero.text}
           </p>
-          <div data-hero-fade className="mt-9 flex flex-wrap gap-4">
+          <div data-hero-fade className="mt-6 flex flex-wrap gap-3 sm:mt-9 sm:gap-4">
             <a href={whatsappLink('Olá! Quero fazer uma encomenda na Doce Aurora.')} target="_blank" rel="noreferrer" className="btn btn-primary">
               <WhatsappLogo size={22} weight="fill" />
               {hero.primary}
@@ -106,7 +106,7 @@ export function Hero() {
               {hero.secondary}
             </a>
           </div>
-          <ul data-hero-fade className="mt-10 flex items-center gap-3" aria-label="Redes sociais">
+          <ul data-hero-fade className="mt-6 flex items-center gap-3 sm:mt-10" aria-label="Redes sociais">
             {[
               { icon: InstagramLogo, label: `Instagram ${site.instagram}` },
               { icon: TiktokLogo, label: 'TikTok' },
@@ -117,16 +117,16 @@ export function Hero() {
                   href="#"
                   onClick={(e) => e.preventDefault()}
                   aria-label={`${label} (perfil fictício)`}
-                  className="grid size-11 place-items-center rounded-full bg-white/60 text-ink backdrop-blur transition duration-300 hover:-translate-y-1 hover:rotate-6 hover:bg-white hover:text-pink-ink"
+                  className="grid size-10 place-items-center rounded-full bg-white/60 sm:size-11 text-ink backdrop-blur transition duration-300 hover:-translate-y-1 hover:rotate-6 hover:bg-white hover:text-pink-ink"
                 >
-                  <Icon size={21} weight="fill" />
+                  <Icon size={19} weight="fill" />
                 </a>
               </li>
             ))}
           </ul>
         </div>
 
-        <div data-hero-art className="relative mx-auto aspect-square w-full max-w-[38rem] lg:-mr-10">
+        <div data-hero-art className="relative mx-auto aspect-square w-full max-w-[16rem] sm:max-w-[26rem] lg:-mr-10 lg:max-w-[38rem]">
           <div aria-hidden="true" className="absolute inset-[12%] rounded-full bg-white/30 blur-2xl" />
           <Suspense fallback={<div className="absolute inset-[18%] animate-pulse rounded-full bg-pink/40" />}>
             <HeroCanvas reduced={reduced} />

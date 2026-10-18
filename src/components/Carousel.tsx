@@ -32,13 +32,13 @@ export function Carousel() {
   const next = () => embla?.scrollNext()
 
   return (
-    <section id="vitrine" className="relative bg-blush pt-[clamp(110px,13vw,200px)] pb-16" aria-labelledby="vitrine-title">
+    <section id="vitrine" className="relative bg-blush pt-[clamp(76px,13vw,200px)] pb-12 sm:pb-16" aria-labelledby="vitrine-title">
       <Drip color="#ffffff" seed={9} count={18} className="absolute inset-x-0 top-0 z-10" />
 
       <div className="container-x flex flex-wrap items-end justify-between gap-6">
         <div data-reveal>
           <p className="eyebrow">Vitrine do dia</p>
-          <h2 id="vitrine-title" className="mt-3 font-display text-[clamp(2.2rem,4.5vw,3.4rem)] font-bold leading-none">
+          <h2 id="vitrine-title" className="mt-3 font-display text-[clamp(1.75rem,4.5vw,3.4rem)] font-bold leading-none">
             Saídos do forno hoje
           </h2>
         </div>
@@ -54,9 +54,9 @@ export function Carousel() {
               onClick={fn}
               aria-label={label}
               aria-controls="vitrine-track"
-              className="group grid size-14 place-items-center rounded-full border-2 border-ink/15 bg-white text-ink transition duration-300 hover:scale-110 hover:border-pink hover:bg-pink hover:text-white active:scale-95"
+              className="group grid size-11 place-items-center sm:size-14 rounded-full border-2 border-ink/15 bg-white text-ink transition duration-300 hover:scale-110 hover:border-pink hover:bg-pink hover:text-white active:scale-95"
             >
-              <Icon size={22} weight="bold" className="transition-transform duration-300 group-hover:scale-110" />
+              <Icon size={20} weight="bold" className="transition-transform duration-300 group-hover:scale-110" />
             </button>
           ))}
         </div>
@@ -64,7 +64,7 @@ export function Carousel() {
 
       <div
         ref={viewportRef}
-        className="mt-10 cursor-grab overflow-hidden active:cursor-grabbing"
+        className="mt-6 cursor-grab sm:mt-10 overflow-hidden active:cursor-grabbing"
         role="region"
         aria-roledescription="carrossel"
         aria-label="Doces da vitrine"
@@ -78,7 +78,7 @@ export function Carousel() {
           {products.map((p, i) => (
             <li
               key={p.name}
-              className="min-w-0 shrink-0 basis-[68%] py-4 sm:basis-[40%] md:basis-[30%] lg:basis-[22%]"
+              className="min-w-0 shrink-0 basis-[62%] py-4 sm:basis-[40%] md:basis-[30%] lg:basis-[22%]"
               aria-roledescription="slide"
               aria-label={`${i + 1} de ${products.length}: ${p.name}`}
             >
@@ -104,15 +104,15 @@ export function Carousel() {
                 </div>
                 <div className="flex items-end justify-between gap-3 px-2 pt-4 pb-1">
                   <div className="min-w-0">
-                    <h3 className="truncate font-display text-lg font-semibold">{p.name}</h3>
-                    <p className="font-display text-xl font-semibold text-pink-ink">{p.price}</p>
+                    <h3 className="truncate font-display text-base font-semibold sm:text-lg">{p.name}</h3>
+                    <p className="font-display text-lg font-semibold text-pink-ink sm:text-xl">{p.price}</p>
                   </div>
                   <a
                     href={whatsappLink(`Olá! Quero encomendar: ${p.name}.`)}
                     target="_blank"
                     rel="noreferrer"
                     aria-label={`Encomendar ${p.name}`}
-                    className="grid size-11 shrink-0 place-items-center rounded-full bg-mint-soft text-mint-deep transition duration-500 ease-[var(--ease-jelly)] hover:rotate-90 hover:bg-pink hover:text-white group-hover:bg-pink group-hover:text-white"
+                    className="grid size-10 shrink-0 place-items-center rounded-full bg-mint-soft sm:size-11 text-mint-deep transition duration-500 ease-[var(--ease-jelly)] hover:rotate-90 hover:bg-pink hover:text-white group-hover:bg-pink group-hover:text-white"
                   >
                     <Plus size={20} weight="bold" />
                   </a>
@@ -123,7 +123,7 @@ export function Carousel() {
         </ul>
       </div>
 
-      <div className="container-x mt-8">
+      <div className="container-x mt-6 sm:mt-8">
         <div className="h-1.5 overflow-hidden rounded-full bg-pink/15" aria-hidden="true">
           <div ref={progressRef} className="h-full w-1/4 rounded-full bg-pink" style={{ transform: `translateX(${progress * 300}%)` }} />
         </div>

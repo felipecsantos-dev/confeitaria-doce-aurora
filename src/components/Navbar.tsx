@@ -59,7 +59,7 @@ export function Navbar() {
           solid && !open ? 'bg-white/80 shadow-[0_10px_30px_-20px_rgb(35_48_59/0.4)] backdrop-blur-xl' : ''
         }`}
       >
-        <nav className="container-x flex h-20 items-center justify-between gap-6" aria-label="Principal">
+        <nav className="container-x flex h-16 items-center sm:h-20 justify-between gap-6" aria-label="Principal">
           <a href="#inicio" onClick={go('inicio')} className="group relative z-10 rounded-full" aria-label={`${site.fullName}, voltar ao início`}>
             <Logo />
           </a>
@@ -107,7 +107,7 @@ export function Navbar() {
               className="transition-all duration-500"
               style={{ transitionDelay: open ? `${150 + i * 60}ms` : '0ms', opacity: open ? 1 : 0, transform: open ? 'none' : 'translateY(20px)' }}
             >
-              <a href={`#${item.id}`} onClick={go(item.id)} className="font-display text-5xl font-semibold text-ink transition-colors hover:text-pink-ink">
+              <a href={`#${item.id}`} onClick={go(item.id)} className="font-display text-4xl font-semibold text-ink transition-colors hover:text-pink-ink">
                 {item.label}
               </a>
             </li>

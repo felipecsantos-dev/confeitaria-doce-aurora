@@ -56,7 +56,7 @@ export function Location() {
   }, [])
 
   return (
-    <section id="visite" className="relative bg-mint-soft pb-24 pt-[clamp(110px,13vw,200px)]" aria-labelledby="visite-title">
+    <section id="visite" className="relative bg-mint-soft pb-16 sm:pb-24 pt-[clamp(76px,13vw,200px)]" aria-labelledby="visite-title">
       <Drip color="#ffffff" seed={27} count={16} className="absolute inset-x-0 top-0 z-10" />
 
       <div className="container-x">
@@ -64,24 +64,29 @@ export function Location() {
           <p data-reveal className="eyebrow">
             Visite a gente
           </p>
-          <h2 id="visite-title" data-reveal className="mt-3 font-display text-[clamp(2.3rem,4.6vw,3.6rem)] font-bold leading-none">
+          <h2 id="visite-title" data-reveal className="mt-3 font-display text-[clamp(1.75rem,4.6vw,3.6rem)] font-bold leading-none">
             Passa aqui para um café com bolo
           </h2>
         </div>
 
-        <div className="mt-12 grid gap-6 lg:grid-cols-[1.5fr_1fr]">
+        <div className="mt-8 grid gap-4 sm:mt-12 sm:gap-6 lg:grid-cols-[1.5fr_1fr]">
           <div data-reveal className="relative overflow-hidden rounded-[2rem] border-[6px] border-white bg-white shadow-soft">
-            <div ref={mapRef} className="h-[22rem] w-full lg:h-full lg:min-h-[28rem]" role="region" aria-label="Mapa com a localização da confeitaria" />
+            <div
+              ref={mapRef}
+              className="h-64 w-full sm:h-[22rem] lg:h-full lg:min-h-[28rem]"
+              role="region"
+              aria-label="Mapa com a localização da confeitaria"
+            />
             <p className="pointer-events-none absolute left-4 top-4 z-[500] rounded-full bg-white/90 px-3 py-1.5 text-xs font-semibold text-ink-soft shadow backdrop-blur">
               Endereço fictício · projeto de portfólio
             </p>
           </div>
 
-          <div data-reveal className="flex flex-col gap-6 rounded-[2rem] bg-white p-7 shadow-soft sm:p-9">
+          <div data-reveal className="flex flex-col gap-5 rounded-[2rem] bg-white p-5 shadow-soft sm:gap-6 sm:p-9">
             <div className="flex gap-4">
               <MapPin size={26} weight="duotone" className="mt-0.5 shrink-0 text-pink-deep" />
               <address className="not-italic">
-                <strong className="block font-display text-xl font-semibold">{location.address}</strong>
+                <strong className="block font-display text-lg font-semibold sm:text-xl">{location.address}</strong>
                 <span className="text-ink-soft">{location.city}</span>
               </address>
             </div>
@@ -90,7 +95,7 @@ export function Location() {
               <Clock size={26} weight="duotone" className="mt-0.5 shrink-0 text-pink-deep" />
               <div className="flex-1">
                 <div className="flex items-center gap-3">
-                  <strong className="font-display text-xl font-semibold">Horários</strong>
+                  <strong className="font-display text-lg font-semibold sm:text-xl">Horários</strong>
                   <span
                     className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-bold ${
                       open ? 'bg-mint-soft text-mint-deep' : 'bg-blush text-pink-ink'
@@ -114,7 +119,7 @@ export function Location() {
             <div className="flex gap-4">
               <Phone size={26} weight="duotone" className="mt-0.5 shrink-0 text-pink-deep" />
               <div>
-                <strong className="block font-display text-xl font-semibold">{site.phone}</strong>
+                <strong className="block font-display text-lg font-semibold sm:text-xl">{site.phone}</strong>
                 <span className="text-ink-soft">{site.email}</span>
               </div>
             </div>

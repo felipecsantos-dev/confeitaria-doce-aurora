@@ -76,7 +76,7 @@ export function Drip({ color, seed = 1, count = 15, className = '', gloss = fals
       aria-hidden="true"
       viewBox={`0 0 ${W} ${H}`}
       preserveAspectRatio="xMidYMin slice"
-      className={`pointer-events-none block w-full h-[clamp(84px,12vw,190px)] ${className}`}
+      className={`pointer-events-none block w-full h-[clamp(60px,12vw,190px)] ${className}`}
     >
       <defs>
         <filter id={`goo-${id}`} x="-5%" y="-20%" width="110%" height="160%">
