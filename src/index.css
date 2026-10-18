@@ -84,13 +84,6 @@ html.lenis body {
     text-transform: uppercase;
     color: var(--color-pink-ink);
   }
-  .eyebrow::before {
-    content: '';
-    width: 1.75rem;
-    height: 0.4rem;
-    border-radius: 999px;
-    background: var(--color-pink);
-  }
 
   /* Botão com "calda" que sobe e preenche no hover. */
   .btn {

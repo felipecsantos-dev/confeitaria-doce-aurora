@@ -1,4 +1,4 @@
-import { ArrowsClockwise, InstagramLogo, Star, TiktokLogo, WhatsappLogo } from '@phosphor-icons/react'
+import { ArrowsClockwise, InstagramLogo, TiktokLogo, WhatsappLogo } from '@phosphor-icons/react'
 import { lazy, Suspense, useEffect, useRef } from 'react'
 import { hero, site } from '../content'
 import { scrollToId } from '../hooks/useLenis'
@@ -133,19 +133,6 @@ export function Hero() {
             <HeroCanvas reduced={reduced} />
           </Suspense>
 
-          <div
-            data-chip
-            className="absolute left-0 top-[12%] flex items-center gap-2 rounded-2xl bg-white/75 px-4 py-3 shadow-soft backdrop-blur-md sm:left-[2%]"
-          >
-            <Star size={20} weight="fill" className="text-[#f5b301]" />
-            <span className="text-sm leading-tight">
-              <strong className="block font-display text-lg">4,9</strong>2 mil avaliações
-            </span>
-          </div>
-          <div data-chip className="absolute bottom-[10%] right-0 rounded-2xl bg-white/75 px-4 py-3 text-sm shadow-soft backdrop-blur-md sm:right-[4%]">
-            <strong className="block font-display text-lg text-pink-ink">Feito hoje</strong>
-            saiu do forno às 7h
-          </div>
           <p
             data-chip
             className="absolute bottom-0 left-1/2 hidden -translate-x-1/2 items-center gap-2 rounded-full bg-ink/80 px-4 py-2 text-xs font-medium text-white sm:flex"
