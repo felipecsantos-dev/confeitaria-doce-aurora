@@ -1,4 +1,3 @@
-import { HeartStraight } from '@phosphor-icons/react'
 import { credits, nav, site } from '../content'
 import { scrollToId } from '../hooks/useLenis'
 import { Drip } from './Drip'
@@ -45,12 +44,12 @@ export function Footer() {
       </div>
       <div className="container-x mt-14 flex flex-col gap-3 border-t border-white/10 pt-6 text-sm text-white/60 md:flex-row md:items-center md:justify-between">
         <p>{credits}</p>
-        <p className="flex items-center gap-1.5">
-          Desenvolvido com <HeartStraight size={14} weight="fill" className="text-pink" aria-label="carinho" /> por
-          <a href={site.author.url} target="_blank" rel="noreferrer" className="link-drip rounded font-semibold text-white">
-            {site.author.name}
-          </a>
-        </p>
+        <a href={site.author.url} target="_blank" rel="noreferrer" className="group rounded-lg md:text-right">
+          <span className="block font-semibold text-white">
+            Felipe<span className="text-white/60">.Dev</span>
+          </span>
+          <span className="link-drip">{site.author.name}, Desenvolvedor Web</span>
+        </a>
       </div>
     </footer>
   )

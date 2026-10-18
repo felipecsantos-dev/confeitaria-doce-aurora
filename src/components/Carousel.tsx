@@ -92,8 +92,8 @@ export function Carousel() {
                   <img
                     src={`/images/${p.image}.webp`}
                     alt={p.name}
-                    width={1200}
-                    height={1600}
+                    width={640}
+                    height={960}
                     loading="lazy"
                     draggable={false}
                     className="size-full object-cover transition-transform duration-700 ease-out group-hover:scale-110 group-hover:rotate-1"

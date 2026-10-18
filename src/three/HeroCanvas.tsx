@@ -1,4 +1,4 @@
-import { ContactShadows, Environment, Float, Lightformer, PresentationControls } from '@react-three/drei'
+import { ContactShadows, Environment, Float, Lightformer } from '@react-three/drei'
 import { Canvas, useFrame } from '@react-three/fiber'
 import { useEffect, useRef, useState } from 'react'
 import type { Group } from 'three'
@@ -11,17 +11,14 @@ function Scene({ reduced }: Props) {
   const tiltRef = useRef<Group>(null)
   const spinRef = useRef<Group>(null)
 
-  useFrame((state, delta) => {
+  useFrame((_, delta) => {
     const tilt = tiltRef.current
     const spin = spinRef.current
     if (!tilt || !spin) return
-    // Gira devagar sozinho e um pouco mais conforme a página rola.
+    // Gira devagar sozinho e inclina um pouco conforme a página rola.
     const scroll = window.scrollY / window.innerHeight
     if (!reduced) spin.rotation.z += delta * 0.18
-    const targetX = -0.95 + scroll * 0.6 + (reduced ? 0 : state.pointer.y * 0.18)
-    const targetY = reduced ? 0 : state.pointer.x * 0.35
-    tilt.rotation.x = MathUtils.damp(tilt.rotation.x, targetX, 4, delta)
-    tilt.rotation.y = MathUtils.damp(tilt.rotation.y, targetY, 4, delta)
+    tilt.rotation.x = MathUtils.damp(tilt.rotation.x, -0.95 + scroll * 0.6, 4, delta)
     tilt.position.y = MathUtils.damp(tilt.position.y, -scroll * 0.8, 4, delta)
   })
 
@@ -31,15 +28,13 @@ function Scene({ reduced }: Props) {
       <directionalLight position={[3, 4, 5]} intensity={1.6} color="#fff4f0" />
       <directionalLight position={[-4, -2, 2]} intensity={0.5} color="#8edfd9" />
 
-      <PresentationControls global={false} cursor snap speed={1.4} polar={[-0.5, 0.5]} azimuth={[-0.9, 0.9]}>
-        <Float speed={reduced ? 0 : 1.6} rotationIntensity={reduced ? 0 : 0.25} floatIntensity={reduced ? 0 : 0.8}>
-          <group ref={tiltRef} rotation={[-0.95, 0, 0]}>
-            <group ref={spinRef} rotation={[0, 0, 0.6]}>
-              <Donut seed={3} />
-            </group>
+      <Float speed={reduced ? 0 : 1.6} rotationIntensity={reduced ? 0 : 0.25} floatIntensity={reduced ? 0 : 0.8}>
+        <group ref={tiltRef} rotation={[-0.95, 0, 0]}>
+          <group ref={spinRef} rotation={[0, 0, 0.6]}>
+            <Donut seed={3} />
           </group>
-        </Float>
-      </PresentationControls>
+        </group>
+      </Float>
 
       {/* Donuts menores ao fundo dão profundidade. */}
       <Float speed={reduced ? 0 : 2.2} rotationIntensity={reduced ? 0 : 1.2} floatIntensity={reduced ? 0 : 1.4}>
@@ -53,7 +48,8 @@ function Scene({ reduced }: Props) {
         </group>
       </Float>
 
-      <ContactShadows position={[0, -1.55, 0]} opacity={0.28} scale={6} blur={2.6} far={3} color="#1f7f79" />
+      {/* Sombra calculada uma vez só, em vez de a cada quadro. */}
+      <ContactShadows frames={1} resolution={256} position={[0, -1.55, 0]} opacity={0.28} scale={6} blur={2.6} far={3} color="#1f7f79" />
 
       {/* Ambiente feito só com luzes, sem baixar HDR. */}
       <Environment resolution={256}>
@@ -84,13 +80,13 @@ export default function HeroCanvas({ reduced }: Props) {
   }, [])
 
   return (
-    <div ref={wrapRef} className="absolute -inset-[18%]">
+    <div ref={wrapRef} className="pointer-events-none absolute -inset-[18%]">
       <Canvas
-        dpr={[1, 1.75]}
+        dpr={[1, 1.5]}
         camera={{ position: [0, 0, 6.4], fov: 38 }}
         frameloop={visible ? 'always' : 'never'}
         gl={{ antialias: true, alpha: true }}
-        aria-label="Donut 3D com cobertura rosa e granulado colorido. Arraste para girar."
+        aria-label="Donut 3D com cobertura rosa e granulado colorido"
         role="img"
       >
         <Scene reduced={reduced} />

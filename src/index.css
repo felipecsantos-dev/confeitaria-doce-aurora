@@ -201,19 +201,6 @@ html.lenis body {
   }
 }
 
-@keyframes blob {
-  0%,
-  100% {
-    border-radius: 58% 42% 55% 45% / 48% 58% 42% 52%;
-  }
-  33% {
-    border-radius: 45% 55% 40% 60% / 58% 42% 58% 42%;
-  }
-  66% {
-    border-radius: 52% 48% 62% 38% / 42% 55% 45% 58%;
-  }
-}
-
 @keyframes wobble {
   0%,
   100% {

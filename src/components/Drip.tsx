@@ -59,9 +59,11 @@ export function Drip({ color, seed = 1, count = 15, className = '', gloss = fals
         { y: (i) => -shape.drips[i].len * 0.85 },
         {
           y: 0,
-          ease: 'none',
-          stagger: { each: 0.04, from: 'random' },
-          scrollTrigger: { trigger: svg, start: 'top 98%', end: 'bottom 35%', scrub: 1.2 },
+          duration: 1.6,
+          ease: 'power2.out',
+          stagger: { each: 0.05, from: 'random' },
+          // Escorre uma vez ao aparecer: o filtro "goo" só é recalculado durante a animação, não a cada rolagem.
+          scrollTrigger: { trigger: svg, start: 'top 90%', once: true },
         },
       )
     }, svg)

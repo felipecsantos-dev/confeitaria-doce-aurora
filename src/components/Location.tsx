@@ -33,7 +33,7 @@ export function Location() {
       async ([entry]) => {
         if (!entry.isIntersecting) return
         io.disconnect()
-        const L = await import('leaflet')
+        const [L] = await Promise.all([import('leaflet'), import('leaflet/dist/leaflet.css')])
         if (cancelled) return
         map = L.map(el, { center: location.coords, zoom: 15, maxZoom: 16, scrollWheelZoom: false, zoomControl: false, attributionControl: true })
         L.control.zoom({ position: 'bottomright' }).addTo(map)

@@ -83,8 +83,8 @@ export function Menu() {
                   <img
                     src={`/images/${p.image}.webp`}
                     alt=""
-                    width={1200}
-                    height={1600}
+                    width={640}
+                    height={960}
                     loading="lazy"
                     className="size-full object-cover transition-transform duration-700 group-hover:scale-115"
                   />

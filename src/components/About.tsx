@@ -70,8 +70,8 @@ export function About() {
               data-parallax
               src="/images/cafe-rosa.webp"
               alt="Salão da confeitaria com mesas de mármore, cadeiras rosa e flores"
-              width={1200}
-              height={1599}
+              width={900}
+              height={1200}
               loading="lazy"
               className="absolute inset-0 h-[118%] w-full -translate-y-[8%] object-cover"
             />
@@ -83,15 +83,21 @@ export function About() {
             <img
               src="/images/confeiteira.webp"
               alt="Confeiteira decorando doces com saco de confeitar"
-              width={1200}
-              height={1800}
+              width={420}
+              height={630}
               loading="lazy"
               className="size-full object-cover"
             />
           </div>
           <SpinningBadge />
-          <span aria-hidden="true" className="absolute -left-10 top-10 -z-10 size-40 animate-[blob_12s_ease-in-out_infinite] bg-mint" />
-          <span aria-hidden="true" className="absolute -bottom-12 right-6 -z-10 size-28 animate-[blob_9s_ease-in-out_infinite_reverse] bg-glaze" />
+          <span
+            aria-hidden="true"
+            className="absolute -left-10 top-10 -z-10 size-40 animate-[spin-slow_24s_linear_infinite] rounded-[58%_42%_55%_45%/48%_58%_42%_52%] bg-mint"
+          />
+          <span
+            aria-hidden="true"
+            className="absolute -bottom-12 right-6 -z-10 size-28 animate-[spin-slow_18s_linear_infinite_reverse] rounded-[45%_55%_40%_60%/58%_42%_58%_42%] bg-glaze"
+          />
         </div>
 
         <div>

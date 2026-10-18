@@ -156,4 +156,4 @@ export const location = {
   ],
 }
 
-export const credits = 'Fotos: Unsplash (licença livre). Projeto fictício de portfólio.'
+export const credits = 'Projeto fictício de portfólio.'

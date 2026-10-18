@@ -1,4 +1,4 @@
-import { ArrowsClockwise, InstagramLogo, TiktokLogo, WhatsappLogo } from '@phosphor-icons/react'
+import { InstagramLogo, TiktokLogo, WhatsappLogo } from '@phosphor-icons/react'
 import { lazy, Suspense, useEffect, useRef } from 'react'
 import { hero, site } from '../content'
 import { scrollToId } from '../hooks/useLenis'
@@ -44,7 +44,6 @@ export function Hero() {
       tl.from('[data-letter]', { yPercent: 110, rotate: 8, duration: 1.1, stagger: 0.025 })
         .from('[data-hero-fade]', { y: 30, opacity: 0, duration: 0.9, stagger: 0.1 }, '-=0.7')
         .from('[data-hero-art]', { scale: 0.6, opacity: 0, duration: 1.4, ease: 'elastic.out(1, 0.6)' }, 0.2)
-        .from('[data-chip]', { y: 20, opacity: 0, scale: 0.8, duration: 0.8, stagger: 0.15, ease: 'back.out(2)' }, '-=0.9')
       // Granulados de fundo se afastam ao rolar.
       gsap.to('[data-sprinkle]', {
         y: (i) => -80 - i * 25,
@@ -63,10 +62,10 @@ export function Hero() {
       className="relative isolate overflow-hidden bg-[radial-gradient(120%_90%_at_80%_20%,#bff0ec_0%,#8edfd9_45%,#5fcac3_100%)] pt-28 pb-16 lg:pt-32 lg:pb-24"
     >
       {/* Bolhas de fundo que mudam de forma */}
-      <div aria-hidden="true" className="absolute -left-32 top-1/3 -z-10 size-[28rem] animate-[blob_14s_ease-in-out_infinite] bg-white/25 blur-2xl" />
+      <div aria-hidden="true" className="absolute -left-32 top-1/3 -z-10 size-[28rem] rounded-[58%_42%_55%_45%/48%_58%_42%_52%] bg-white/25 blur-2xl" />
       <div
         aria-hidden="true"
-        className="absolute right-[-10rem] top-[-8rem] -z-10 size-[34rem] animate-[blob_18s_ease-in-out_infinite_reverse] bg-glaze/40 blur-3xl"
+        className="absolute right-[-10rem] top-[-8rem] -z-10 size-[34rem] rounded-[45%_55%_40%_60%/58%_42%_58%_42%] bg-glaze/40 blur-3xl"
       />
       {sprinkles.map((s, i) => (
         <span
@@ -132,13 +131,6 @@ export function Hero() {
           <Suspense fallback={<div className="absolute inset-[18%] animate-pulse rounded-full bg-pink/40" />}>
             <HeroCanvas reduced={reduced} />
           </Suspense>
-
-          <p
-            data-chip
-            className="absolute bottom-0 left-1/2 hidden -translate-x-1/2 items-center gap-2 rounded-full bg-ink/80 px-4 py-2 text-xs font-medium text-white sm:flex"
-          >
-            <ArrowsClockwise size={14} weight="bold" /> Arraste para girar
-          </p>
         </div>
       </div>
     </section>

@@ -13,7 +13,7 @@ export function Highlights() {
           const Icon = icons[h.icon]
           return (
             <li key={h.title} data-reveal className="group">
-              <span className="grid size-16 animate-[blob_10s_ease-in-out_infinite] place-items-center bg-mint-soft text-mint-deep transition-colors duration-500 group-hover:bg-pink group-hover:text-white">
+              <span className="grid size-16 place-items-center rounded-[58%_42%_55%_45%/48%_58%_42%_52%] bg-mint-soft text-mint-deep transition-colors duration-500 group-hover:bg-pink group-hover:text-white">
                 <Icon
                   size={30}
                   weight="duotone"

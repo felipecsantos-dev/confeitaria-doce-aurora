@@ -9,8 +9,8 @@ export function Cta() {
       <img
         src="/images/donuts-rosa.webp"
         alt=""
-        width={1200}
-        height={800}
+        width={900}
+        height={600}
         loading="lazy"
         className="absolute -right-24 bottom-0 hidden w-[34rem] rotate-6 rounded-[3rem] opacity-90 mix-blend-luminosity lg:block"
       />
