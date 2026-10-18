@@ -1,0 +1,271 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-pink: #f2709c;
+  --color-pink-deep: #d13a70;
+  --color-pink-ink: #b8285a;
+  --color-glaze: #ffc6da;
+  --color-blush: #fff0f5;
+  --color-mint: #8edfd9;
+  --color-mint-soft: #e6f8f6;
+  --color-mint-deep: #1f7f79;
+  --color-ink: #23303b;
+  --color-ink-soft: #55626d;
+  --color-choco: #5b3530;
+  --color-dough: #e9a65f;
+
+  --font-display: 'Fredoka', ui-rounded, system-ui, sans-serif;
+  --font-sans: 'DM Sans', system-ui, sans-serif;
+
+  --shadow-pink: 0 18px 40px -18px rgb(224 69 123 / 0.55);
+  --shadow-soft: 0 24px 60px -30px rgb(35 48 59 / 0.35);
+
+  --ease-out-back: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-jelly: cubic-bezier(0.68, -0.6, 0.32, 1.6);
+}
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    scroll-padding-top: 6rem;
+  }
+
+  body {
+    background: #fff;
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    overflow-x: clip;
+  }
+
+  ::selection {
+    background: var(--color-pink);
+    color: #fff;
+  }
+
+  /* Anel de foco duplo: branco por dentro e rosa por fora, visível em qualquer fundo. */
+  :focus-visible {
+    outline: 3px solid var(--color-pink-deep);
+    outline-offset: 3px;
+    box-shadow: 0 0 0 3px #fff;
+    border-radius: 999px;
+  }
+
+  img {
+    user-select: none;
+    -webkit-user-drag: none;
+  }
+}
+
+/* Lenis */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+@layer components {
+  .container-x {
+    width: min(100% - 2rem, 76rem);
+    margin-inline: auto;
+  }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-pink-ink);
+  }
+  .eyebrow::before {
+    content: '';
+    width: 1.75rem;
+    height: 0.4rem;
+    border-radius: 999px;
+    background: var(--color-pink);
+  }
+
+  /* Botão com "calda" que sobe e preenche no hover. */
+  .btn {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    min-height: 3.5rem;
+    padding: 0 1.9rem;
+    border-radius: 999px;
+    font-weight: 700;
+    transition:
+      color 0.45s ease,
+      transform 0.45s var(--ease-out-back),
+      box-shadow 0.45s ease;
+  }
+  .btn::before {
+    content: '';
+    position: absolute;
+    inset: -10% -5%;
+    z-index: -1;
+    background: var(--fill);
+    /* Borda ondulada no topo da calda */
+    -webkit-mask: radial-gradient(14px 10px at 50% 0, #0000 98%, #000) 0 0 / 28px 100% repeat-x;
+    mask: radial-gradient(14px 10px at 50% 0, #0000 98%, #000) 0 0 / 28px 100% repeat-x;
+    transform: translateY(105%);
+    transition: transform 0.6s cubic-bezier(0.65, 0, 0.35, 1);
+  }
+  .btn:hover::before,
+  .btn:focus-visible::before {
+    transform: translateY(-4%);
+    animation: wave-x 1.4s linear infinite;
+  }
+  .btn:hover {
+    transform: translateY(-3px);
+  }
+  .btn:active {
+    transform: translateY(0) scale(0.97);
+  }
+
+  .btn-primary {
+    --fill: var(--color-pink-ink);
+    background: var(--color-pink-deep);
+    color: #fff;
+    box-shadow: var(--shadow-pink);
+  }
+  .btn-ghost {
+    --fill: #fff;
+    border: 2px solid currentColor;
+    color: var(--color-ink);
+  }
+  .btn-ghost:hover {
+    color: var(--color-pink-ink);
+  }
+  .btn-light {
+    --fill: var(--color-ink);
+    background: #fff;
+    color: var(--color-pink-ink);
+  }
+  .btn-light:hover {
+    color: #fff;
+  }
+
+  /* Link com sublinhado que escorre */
+  .link-drip {
+    position: relative;
+    padding-block: 0.35rem;
+  }
+  .link-drip::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 3px;
+    border-radius: 999px;
+    background: var(--color-pink);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.4s cubic-bezier(0.65, 0, 0.35, 1);
+  }
+  .link-drip:hover::after,
+  .link-drip[aria-current='true']::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+
+  .tilt {
+    transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) translateY(var(--ty, 0));
+    transition:
+      transform 0.5s var(--ease-out-back),
+      box-shadow 0.5s ease;
+  }
+}
+
+@keyframes wave-x {
+  to {
+    -webkit-mask-position: 28px 0;
+    mask-position: 28px 0;
+  }
+}
+
+@keyframes spin-slow {
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes blob {
+  0%,
+  100% {
+    border-radius: 58% 42% 55% 45% / 48% 58% 42% 52%;
+  }
+  33% {
+    border-radius: 45% 55% 40% 60% / 58% 42% 58% 42%;
+  }
+  66% {
+    border-radius: 52% 48% 62% 38% / 42% 55% 45% 58%;
+  }
+}
+
+@keyframes wobble {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-4deg);
+  }
+  50% {
+    transform: translateY(-10px) rotate(4deg);
+  }
+}
+
+/* Mapa */
+.leaflet-container {
+  font-family: var(--font-sans);
+  background: var(--color-mint-soft);
+}
+.leaflet-control-attribution {
+  font-size: 10px;
+}
+.map-pin {
+  display: grid;
+  place-items: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@keyframes pin-pulse {
+  from {
+    transform: scale(0.6);
+    opacity: 0.6;
+  }
+  to {
+    transform: scale(1.8);
+    opacity: 0;
+  }
+}
+
+/* Deixa o mapa cinza com um toque de menta, combinando com a paleta. */
+.leaflet-tile-pane {
+  filter: sepia(0.25) hue-rotate(130deg) saturate(1.4) brightness(1.02);
+}
