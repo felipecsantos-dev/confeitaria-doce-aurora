@@ -1,12 +1,13 @@
 import { InstagramLogo, TiktokLogo, WhatsappLogo } from '@phosphor-icons/react'
-import { lazy, Suspense, useEffect, useRef } from 'react'
+import { lazy, Suspense, useLayoutEffect, useRef, useState } from 'react'
 import { hero, site } from '../content'
 import { scrollToId } from '../hooks/useLenis'
 import { useReducedMotion } from '../hooks/useReducedMotion'
 import { gsap } from '../lib/gsap'
 import { whatsappLink } from '../lib/whatsapp'
 
-const HeroCanvas = lazy(() => import('../three/HeroCanvas'))
+const loadCanvas = () => import('../three/HeroCanvas')
+const HeroCanvas = lazy(loadCanvas)
 
 function Letters({ text, className = '' }: { text: string; className?: string }) {
   return (
@@ -36,14 +37,23 @@ const sprinkles = [
 export function Hero() {
   const ref = useRef<HTMLElement>(null)
   const reduced = useReducedMotion()
+  const [show3d, setShow3d] = useState(false)
 
-  useEffect(() => {
-    if (reduced || !ref.current) return
+  // Antes da primeira pintura: esconde o texto, espera as fontes e só então anima.
+  // O 3D só monta depois da entrada do texto, para a montagem dele não travar a animação.
+  useLayoutEffect(() => {
+    if (reduced || !ref.current) {
+      setShow3d(true)
+      return
+    }
     const ctx = gsap.context(() => {
-      const tl = gsap.timeline({ defaults: { ease: 'power4.out' } })
-      tl.from('[data-letter]', { yPercent: 110, rotate: 8, duration: 1.1, stagger: 0.025 })
-        .from('[data-hero-fade]', { y: 30, opacity: 0, duration: 0.9, stagger: 0.1 }, '-=0.7')
-        .from('[data-hero-art]', { scale: 0.6, opacity: 0, duration: 1.4, ease: 'elastic.out(1, 0.6)' }, 0.2)
+      const tl = gsap.timeline({ paused: true, defaults: { ease: 'power4.out' }, onComplete: () => setShow3d(true) })
+      tl.from('[data-letter]', { yPercent: 110, rotate: 8, duration: 1.1, stagger: 0.025 }).from(
+        '[data-hero-fade]',
+        { y: 30, opacity: 0, duration: 0.9, stagger: 0.1 },
+        '-=0.7',
+      )
+      document.fonts.ready.then(() => tl.play())
       // Granulados de fundo se afastam ao rolar.
       gsap.to('[data-sprinkle]', {
         y: (i) => -80 - i * 25,
@@ -123,11 +133,13 @@ export function Hero() {
           </ul>
         </div>
 
-        <div data-hero-art className="relative mx-auto aspect-square w-full max-w-[16rem] sm:max-w-[26rem] lg:-mr-10 lg:max-w-[38rem]">
+        <div className="relative mx-auto aspect-square w-full max-w-[16rem] sm:max-w-[26rem] lg:-mr-10 lg:max-w-[38rem]">
           <div aria-hidden="true" className="absolute inset-[12%] rounded-full bg-white/30 blur-2xl" />
-          <Suspense fallback={<div className="absolute inset-[18%] animate-pulse rounded-full bg-pink/40" />}>
-            <HeroCanvas reduced={reduced} />
-          </Suspense>
+          {show3d && (
+            <Suspense fallback={null}>
+              <HeroCanvas reduced={reduced} />
+            </Suspense>
+          )}
         </div>
       </div>
     </section>

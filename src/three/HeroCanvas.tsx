@@ -1,11 +1,28 @@
-import { ContactShadows, Environment, Float, Lightformer } from '@react-three/drei'
-import { Canvas, useFrame } from '@react-three/fiber'
-import { useEffect, useRef, useState } from 'react'
+import { Float } from '@react-three/drei'
+import { Canvas, useFrame, useThree } from '@react-three/fiber'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import type { Group } from 'three'
 import { MathUtils } from 'three'
 import { Donut } from './Donut'
 
 type Props = { reduced: boolean }
+
+// Compila os shaders em paralelo (sem travar a página) antes de começar a desenhar.
+function Warmup({ onReady }: { onReady: () => void }) {
+  const gl = useThree((s) => s.gl)
+  const scene = useThree((s) => s.scene)
+  const camera = useThree((s) => s.camera)
+  useEffect(() => {
+    let alive = true
+    gl.compileAsync(scene, camera)
+      .catch(() => undefined)
+      .then(() => alive && onReady())
+    return () => {
+      alive = false
+    }
+  }, [gl, scene, camera, onReady])
+  return null
+}
 
 function Scene({ reduced }: Props) {
   const tiltRef = useRef<Group>(null)
@@ -24,8 +41,11 @@ function Scene({ reduced }: Props) {
 
   return (
     <>
-      <ambientLight intensity={0.55} />
-      <directionalLight position={[3, 4, 5]} intensity={1.6} color="#fff4f0" />
+      {/* Só luzes (sem mapa de ambiente): o mapa de reflexo levava mais de 1 s para compilar e travava a página. */}
+      <hemisphereLight args={['#ffffff', '#8edfd9', 1.1]} />
+      <ambientLight intensity={0.35} />
+      <directionalLight position={[3, 4, 5]} intensity={1.9} color="#fff4f0" />
+      <directionalLight position={[-3, 3, 4]} intensity={0.9} color="#ffe4ee" />
       <directionalLight position={[-4, -2, 2]} intensity={0.5} color="#8edfd9" />
 
       <Float speed={reduced ? 0 : 1.6} rotationIntensity={reduced ? 0 : 0.25} floatIntensity={reduced ? 0 : 0.8}>
@@ -43,20 +63,10 @@ function Scene({ reduced }: Props) {
         </group>
       </Float>
       <Float speed={reduced ? 0 : 1.9} rotationIntensity={reduced ? 0 : 1} floatIntensity={reduced ? 0 : 1.2}>
-        <group position={[2.05, -1.35, -0.8]} rotation={[-1.2, -0.3, 0.2]} scale={0.32}>
+        <group position={[1.8, -1.3, -0.8]} rotation={[-1.2, -0.3, 0.2]} scale={0.32}>
           <Donut seed={21} icing="#bff0ec" sprinkles={60} sprinkleColors={['#f2709c', '#ffffff', '#e0457b']} />
         </group>
       </Float>
-
-      {/* Sombra calculada uma vez só, em vez de a cada quadro. */}
-      <ContactShadows frames={1} resolution={256} position={[0, -1.55, 0]} opacity={0.28} scale={6} blur={2.6} far={3} color="#1f7f79" />
-
-      {/* Ambiente feito só com luzes, sem baixar HDR. */}
-      <Environment resolution={256}>
-        <Lightformer form="rect" intensity={2.2} position={[2, 3, 4]} scale={[4, 2, 1]} color="#ffffff" />
-        <Lightformer form="rect" intensity={1.2} position={[-4, 1, 2]} scale={[2, 4, 1]} color="#ffd6e4" />
-        <Lightformer form="ring" intensity={1.4} position={[0, -3, 3]} scale={3} color="#8edfd9" />
-      </Environment>
     </>
   )
 }
@@ -64,6 +74,8 @@ function Scene({ reduced }: Props) {
 export default function HeroCanvas({ reduced }: Props) {
   const wrapRef = useRef<HTMLDivElement>(null)
   const [visible, setVisible] = useState(true)
+  const [ready, setReady] = useState(false)
+  const onReady = useCallback(() => setReady(true), [])
 
   // Para de renderizar quando o hero sai da tela.
   useEffect(() => {
@@ -80,16 +92,26 @@ export default function HeroCanvas({ reduced }: Props) {
   }, [])
 
   return (
-    <div ref={wrapRef} className="pointer-events-none absolute -inset-[18%]">
+    <div
+      ref={wrapRef}
+      className={`pointer-events-none absolute -inset-[18%] transition-[opacity,scale] duration-1000 ease-out ${ready ? 'scale-100 opacity-100' : 'scale-90 opacity-0'}`}
+    >
+      {/* Sombra em CSS: mesmo efeito da sombra 3D, sem custo de renderização. */}
+      <div aria-hidden="true" className="absolute left-1/2 top-[72%] h-[6%] w-[42%] -translate-x-1/2 rounded-[50%] bg-[#1f7f79]/40 blur-xl" />
       <Canvas
         dpr={[1, 1.5]}
         camera={{ position: [0, 0, 6.4], fov: 38 }}
-        frameloop={visible ? 'always' : 'never'}
+        frameloop={ready && visible ? 'always' : 'never'}
         gl={{ antialias: true, alpha: true }}
+        onCreated={({ gl }) => {
+          // Sem a checagem síncrona de erros, a compilação dos shaders não trava a página.
+          gl.debug.checkShaderErrors = false
+        }}
         aria-label="Donut 3D com cobertura rosa e granulado colorido"
         role="img"
       >
         <Scene reduced={reduced} />
+        <Warmup onReady={onReady} />
       </Canvas>
     </div>
   )

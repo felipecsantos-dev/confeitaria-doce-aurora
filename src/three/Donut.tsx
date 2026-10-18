@@ -144,7 +144,7 @@ export function Donut({ icing = '#ff86b3', dough = '#e1a15c', sprinkles = 300, s
         <meshStandardMaterial color={dough} roughness={0.72} />
       </mesh>
       <mesh geometry={icingGeo}>
-        <meshPhysicalMaterial color={icing} roughness={0.2} clearcoat={1} clearcoatRoughness={0.08} sheen={0.3} sheenColor="#ffffff" side={THREE.DoubleSide} />
+        <meshStandardMaterial color={icing} roughness={0.18} metalness={0.02} envMapIntensity={1.35} side={THREE.DoubleSide} />
       </mesh>
       {sprinkles > 0 && (
         <instancedMesh ref={instRef} args={[sprinkleGeo, undefined, sprinkles]}>
