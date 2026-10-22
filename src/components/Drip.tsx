@@ -51,7 +51,8 @@ export function Drip({ color, seed = 1, count = 15, className = '', gloss = fals
 
   useEffect(() => {
     const svg = ref.current
-    if (!svg || reduced) return
+    // No celular a calda já aparece escorrida: animar o filtro "goo" quadro a quadro travava a rolagem.
+    if (!svg || reduced || window.matchMedia('(max-width: 1023px)').matches) return
     const drips = svg.querySelectorAll<SVGGElement>('[data-drip]')
     const ctx = gsap.context(() => {
       gsap.fromTo(

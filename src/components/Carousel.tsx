@@ -98,7 +98,7 @@ export function Carousel() {
                     className="size-full object-cover transition-transform duration-700 ease-out group-hover:scale-110 group-hover:rotate-1"
                   />
                   {p.tag && (
-                    <span className="absolute left-3 top-3 rounded-full bg-white/90 px-3 py-1 text-xs font-bold text-pink-ink backdrop-blur">{p.tag}</span>
+                    <span className="absolute left-3 top-3 rounded-full bg-white/90 px-3 py-1 text-xs font-bold text-pink-ink">{p.tag}</span>
                   )}
                 </div>
                 <div className="flex items-end justify-between gap-3 px-2 pt-4 pb-1">
