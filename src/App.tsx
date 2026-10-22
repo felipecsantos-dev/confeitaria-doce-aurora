@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useLayoutEffect } from 'react'
 import { About } from './components/About'
 import { Carousel } from './components/Carousel'
 import { Cta } from './components/Cta'
@@ -18,7 +18,8 @@ export default function App() {
   useLenis(!reduced)
 
   // Revela os elementos marcados com data-reveal; grupos entram em sequência.
-  useEffect(() => {
+  // Antes da primeira pintura, para nenhum bloco aparecer inteiro e depois sumir para animar.
+  useLayoutEffect(() => {
     if (reduced) return
     const ctx = gsap.context(() => {
       const grouped = new Set<Element>()

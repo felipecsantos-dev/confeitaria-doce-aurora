@@ -56,7 +56,7 @@ export function Navbar() {
     <>
       <header
         className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${hidden && !open ? '-translate-y-full' : 'translate-y-0'} ${
-          solid && !open ? 'bg-white/80 shadow-[0_10px_30px_-20px_rgb(35_48_59/0.4)] backdrop-blur-xl' : ''
+          solid && !open ? 'bg-white/95 shadow-[0_10px_30px_-20px_rgb(35_48_59/0.4)] lg:bg-white/80 lg:backdrop-blur-xl' : ''
         }`}
       >
         <nav className="container-x flex h-16 items-center sm:h-20 justify-between gap-6" aria-label="Principal">

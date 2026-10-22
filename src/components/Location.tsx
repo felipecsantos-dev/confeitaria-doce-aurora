@@ -74,7 +74,7 @@ export function Location() {
               role="region"
               aria-label="Mapa com a localização da confeitaria"
             />
-            <p className="pointer-events-none absolute left-4 top-4 z-[500] rounded-full bg-white/90 px-3 py-1.5 text-xs font-semibold text-ink-soft shadow backdrop-blur">
+            <p className="pointer-events-none absolute left-4 top-4 z-[500] rounded-full bg-white/90 px-3 py-1.5 text-xs font-semibold text-ink-soft shadow">
               Endereço fictício · projeto de portfólio
             </p>
           </div>

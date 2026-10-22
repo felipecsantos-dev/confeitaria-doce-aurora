@@ -12,7 +12,7 @@ Início (donut 3D) · Diferenciais · Vitrine (carrossel) · Sobre · Cardápio 
 
 - **Vite + React 19 + TypeScript**
 - **Tailwind CSS 4** com a paleta definida em variáveis de tema (rosa e menta)
-- **Three.js com React Three Fiber e drei**: donut modelado direto no código (massa, cobertura com gotas escorrendo e 300 granulados instanciados). Gira com o mouse, pode ser arrastado e para de renderizar fora da tela
+- **Three.js com React Three Fiber e drei**: donut modelado direto no código (massa, cobertura com gotas escorrendo e 300 granulados instanciados). Gira com o mouse, pode ser arrastado e para de renderizar fora da tela. No celular e no tablet entra uma imagem da mesma cena (`public/images/donut-hero.webp`) flutuando com CSS, para a página não travar; se o 3D falhar ao carregar, a imagem também aparece no computador
 - **GSAP (ScrollTrigger e Flip)**: título com letras subindo, gotas de calda que crescem com a rolagem, parallax, contadores e a animação de troca dos filtros do cardápio
 - **Lenis**: rolagem suave sincronizada com o GSAP
 - **Embla Carousel**: vitrine com roda do mouse/trackpad, setas, arrastar e teclado
